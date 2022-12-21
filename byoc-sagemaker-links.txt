@@ -1,0 +1,36 @@
+https://aws.amazon.com/blogs/machine-learning/fine-tune-and-host-hugging-face-bert-models-on-amazon-sagemaker/
+https://medium.datadriveninvestor.com/sagemakers-training-batchtransform-job-byoc-with-code-3f9b10f2d507
+https://github.com/aws-samples/aws-sagemaker-byoc-end2end/blob/main/containers/batch_transform/Dockerfile
+https://awsdocs-neuron.readthedocs-hosted.com/en/latest/containers/container-sm-hosting-devflow.html?highlight=byoc
+https://github.com/aws/sagemaker-huggingface-inference-toolkit
+https://github.com/aws/deep-learning-containers
+https://github.com/aws/amazon-sagemaker-examples/tree/main/aws_sagemaker_studio/sagemaker_studio_image_build/xgboost_bring_your_own
+https://github.com/aws/amazon-sagemaker-examples/blob/main/advanced_functionality/scikit_bring_your_own/scikit_bring_your_own.ipynb
+https://towardsdatascience.com/bring-your-own-container-with-amazon-sagemaker-37211d8412f4
+https://github.com/aws-samples/sagemaker-project-mlops-byoc/blob/main/images/byoc_mlops_cdk.png
+https://github.com/aws/amazon-sagemaker-examples/blob/main/advanced_functionality/pytorch_extending_our_containers/pytorch_extending_our_containers.ipynb
+https://github.com/aws/deep-learning-containers/blob/master/available_images.md
+
+https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html
+https://towardsdatascience.com/bring-your-own-container-with-amazon-sagemaker-37211d8412f4
+https://sagemaker-workshop.com/custom/containers.html
+https://github.com/aws/deep-learning-containers/blob/master/huggingface/pytorch/training/docker/1.9/py3/cu111/Dockerfile.gpu
+
+create the docker file with base image (Dockerfile name should be start with Capital D)
+
+aws ecr create-repository \
+    --repository-name hf-pytorch-cpu \
+    --image-scanning-configuration scanOnPush=false \
+    --region us-east-1
+
+aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 763104351884.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+docker build -t hf-pytorch-cpu:1.0 .
+docker tag hf-pytorch-cpu:1.0 839052460858.dkr.ecr.us-east-1.amazonaws.com/hf-pytorch-cpu:1.0
+aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 839052460858.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+docker push 839052460858.dkr.ecr.us-east-1.amazonaws.com/hf-pytorch-cpu:1.0
+
+https://github.com/aws/amazon-sagemaker-examples/blob/main/sagemaker-python-sdk/pytorch_mnist/pytorch_mnist.ipynb
+https://github.com/huggingface/notebooks/blob/main/sagemaker/01_getting_started_pytorch/sagemaker-notebook.ipynb
+https://github.com/huggingface/transformers
+https://github.com/aws/amazon-sagemaker-examples/tree/7bacb7bf72155d23e213c8d1fbe9d22e67e1f9f5/advanced_functionality
+https://aws.amazon.com/blogs/machine-learning/fine-tune-and-host-hugging-face-bert-models-on-amazon-sagemaker/
