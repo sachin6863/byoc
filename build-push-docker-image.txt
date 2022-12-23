@@ -1,0 +1,11 @@
+aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 839052460858.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+aws ecr create-repository \
+    --repository-name hf-pytorch-gpu \
+    --image-scanning-configuration scanOnPush=false \
+    --region us-east-1
+aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 763104351884.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+
+(create new directory in cloudshell and copy Dockerfile and train.py there and then cd to this directory and run below)
+docker build -t hf-pytorch-gpu . 
+docker tag hf-pytorch-gpu 839052460858.dkr.ecr.us-east-1.amazonaws.com/hf-pytorch-gpu
+docker push 839052460858.dkr.ecr.us-east-1.amazonaws.com/hf-pytorch-gpu
